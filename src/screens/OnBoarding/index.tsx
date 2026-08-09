@@ -1,14 +1,21 @@
 import {View, Text, TouchableOpacity, Image} from 'react-native';
 import React, {useState} from 'react';
-import { IFitnessXLogo } from '../../assets';
-import {Gap, OnBoardingButton} from '../../components';
-import {onBoardingConstants, onBoardingImage} from '../../constants/onBoardingConstants';
+import {IFitnessXLogo} from '../../assets';
+import {Gap, MainButton, OnBoardingButton} from '../../components';
+import {
+  onBoardingConstants,
+  onBoardingImage,
+} from '../../constants/onBoardingConstants';
 
 const OnBoardingComponent = () => {
   const [step, setStep] = useState(0);
 
   const handleStep = () => {
-    setStep(prevStep => prevStep + 1);
+    if (step < 4) {
+      setStep(prevStep => prevStep + 1);
+    } else {
+      
+    }
   };
 
   const renderScreenStep = (): JSX.Element | null => {
@@ -22,23 +29,7 @@ const OnBoardingComponent = () => {
             <Text>Everybody Can Train</Text>
           </View>
           <View style={{paddingHorizontal: 30}}>
-            <TouchableOpacity
-              onPress={handleStep}
-              style={{
-                backgroundColor: '#92A3FD',
-                borderRadius: 20,
-                paddingVertical: 18,
-                alignItems: 'center',
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  fontSize: 16,
-                  fontFamily: 'Poppins-Bold',
-                }}>
-                Get Started
-              </Text>
-            </TouchableOpacity>
+            <MainButton handleStep={handleStep} />
           </View>
         </>
       );
@@ -48,7 +39,7 @@ const OnBoardingComponent = () => {
           <View style={{flex: 1}}>
             <Image
               source={onBoardingImage[step - 1]}
-              style={{width: '100%',height:'100%'}}
+              style={{width: '100%', height: '100%'}}
               resizeMode="stretch"
             />
           </View>
@@ -67,7 +58,7 @@ const OnBoardingComponent = () => {
               {onBoardingConstants[step - 1]['body']}
             </Text>
           </View>
-          <View style={{alignItems:'flex-end', paddingHorizontal: 30}}>
+          <View style={{alignItems: 'flex-end', paddingHorizontal: 30}}>
             <OnBoardingButton step={step} onPress={handleStep} />
           </View>
         </View>
